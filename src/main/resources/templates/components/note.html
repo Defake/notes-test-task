@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Топ вопросов</title>
+    <link href="/static/styles.css" rel="stylesheet">
+</head>
+
+<body>
+    <div th:fragment="note(id, title, content, visible)">
+        <form class="note" th:data-title="${title}" th:data-content="${content}"
+            th:style="${visible} ? 'display:block' : 'display:none'">
+            <input name="id" type="hidden" th:value="${id}" />
+            <div class="title-box">
+
+                <input th:if="${#strings.isEmpty(title) && visible}"
+                    class="note-title js-empty-title" name="title" 
+                    th:value="${content}" 
+                    placeholder="New note" autocomplete="off" />
+
+                <input th:if="${!#strings.isEmpty(title) || !visible}"
+                    class="note-title" name="title" 
+                    th:value="${title}" 
+                    placeholder="New note" autocomplete="off" />
+                <button class="delete-btn" type="button" tabindex="-1"><svg xmlns="http://www.w3.org/2000/svg" x="0px"
+                        y="0px" width="22" height="22" viewBox="0 0 192 192" style=" fill:#000000;">
+                        <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
+                            stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0"
+                            font-family="none" font-weight="none" font-size="none" text-anchor="none"
+                            style="mix-blend-mode: normal">
+                            <path d="M0,192v-192h192v192z" fill="none"></path>
+                            <g fill="#ffffff">
+                                <g id="surface1">
+                                    <path
+                                        d="M49.15385,29.53846c-2.13461,0 -4.06731,0.83654 -5.53846,2.30769l-11.76923,11.76923c-2.9423,2.94231 -2.9423,8.07692 0,11.76923l40.61538,40.61538l-40.61538,40.61538c-2.9423,3.69231 -2.9423,8.82693 0,11.76923l11.76923,11.76923c3.69231,2.94231 8.82693,2.94231 11.76923,0l40.61538,-40.61538l40.61538,40.61538c3.69231,2.94231 8.82693,2.94231 11.76923,0l11.76923,-11.76923c2.94231,-3.69231 2.94231,-8.82692 0,-11.76923l-40.61538,-40.61538l40.61538,-40.61538c2.94231,-3.69231 2.94231,-8.82692 0,-11.76923l-11.76923,-11.76923c-3.69231,-2.9423 -8.82692,-2.9423 -11.76923,0l-40.61538,40.61538l-40.61538,-40.61538c-1.84615,-1.47116 -4.09615,-2.30769 -6.23077,-2.30769z">
+                                    </path>
+                                </g>
+                            </g>
+                        </g>
+                    </svg></button>
+                <div class="spinner small" style="display: none;"><div></div><div></div><div></div><div></div></div>
+            </div>
+            <div class="note-body">
+                <textarea 
+                    name="content" 
+                    class="note-content" 
+                    placeholder="Give the note some description"
+                    rows=3
+                    th:text="${content}"
+                ></textarea>
+                <div class="note-footer">
+                    <button class="note-action-btn save-btn" type="button">Save</button>
+                    <button class="note-action-btn cancel-btn" type="button">Cancel</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script type="text/javascript" src="static/main.js"></script>
+
+</body>
+
+</html>
