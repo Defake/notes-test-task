@@ -1,0 +1,21 @@
+version: '3.7'
+services:
+  web:
+    image: notes-tt
+    ports:
+      - 9000:9000
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/notesdb
+      - SPRING_DATASOURCE_USERNAME=notes
+      - SPRING_DATASOURCE_PASSWORD=1234567890
+      - SPRING_JPA_HIBERNATE_DDL-AUTO=update
+  db:
+    image: postgres:11.3-alpine
+    environment:
+      - POSTGRES_USER=notes
+      - POSTGRES_PASSWORD=1234567890
+      - POSTGRES_DB=notesdb
+    ports:
+      - 5432:5432
